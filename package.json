@@ -1,0 +1,16 @@
+{
+  "name": "cracking-coding",
+  "version": "1.0.0",
+  "description": "cracking the coding interview practice problems",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "remy",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.0",
+    "jquery": "^3.5.1",
+    "mocha": "^8.3.0"
+  }
+}
