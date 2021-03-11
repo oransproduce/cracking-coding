@@ -232,3 +232,41 @@ function stringRotation(str1, str2) {
  }
  return false;
 }
+
+// 4.4 Check Balanced: Implement a function to check if a binary tree is balanced. For the purpose of this question, a balanced tree is defined to be such that the heights of the two subtrees of any node never differ by more than one.
+
+function checkBalanced(node) {
+  function calculateHeight(node) {
+    if (node === null) {
+      return -1;
+    }
+    const left = 1 + checkBalanced(node.left);
+    if (left === Infinity) {
+      return Infinity;
+    }
+    const right = 1 + checkBalanced(node.right);
+    if (right === Infinity) {
+      return Infinity
+    }
+    if (Math.abs(left - right) > 1) {
+      return Infinity;
+    }
+    return left > right ? left : right;
+  }
+  return calculateHeight(node) === Infinity;
+}
+
+// 4.5 Validate BST: Implement a function to check if a binary tree is a binary search tree
+
+function validateBST(node) {
+  // tree is valid if root is greater than left and less than right
+  if (!node.left && !node.right) {
+    return true;
+  } else if (node.left && node.right) {
+    return node.value > node.left.value && node.value < node.right.value && validateBST(node.left) && validateBSt(node.right)
+  } else if (node.left) {
+    return node.value > node.left.value && validateBST(node.left);
+  } else if (node.right) {
+    return node.value < node.right.value && validateBST(node.right);
+  }
+}

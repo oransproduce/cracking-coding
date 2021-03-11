@@ -114,5 +114,27 @@ describe('string problems', function() {
 
     });
   });
+
+  describe('4.7 build order', function() {
+    it('works for matrix', function() {
+      let input = [
+        [0, 2, 3],
+        [4, 5, 6],
+        [7, 8, 0]
+      ];
+      zeroMatrix(input);
+      let expected = [
+        [0, 0, 0],
+        [0, 5, 0],
+        [0, 0, 0]
+      ];
+      for (let y = 0; y < input.length; y++) {
+        for (let x = 0; x < input.length; x++) {
+          expect(input[y][x]).to.equal(expected[y][x]);
+        }
+      }
+
+    });
+  });
 });
 
