@@ -258,15 +258,129 @@ function checkBalanced(node) {
 
 // 4.5 Validate BST: Implement a function to check if a binary tree is a binary search tree
 
-function validateBST(node) {
+function validateBST(node, min=null, max=null) {
   // tree is valid if root is greater than left and less than right
-  if (!node.left && !node.right) {
+  if (node === null) {
     return true;
-  } else if (node.left && node.right) {
-    return node.value > node.left.value && node.value < node.right.value && validateBST(node.left) && validateBSt(node.right)
-  } else if (node.left) {
-    return node.value > node.left.value && validateBST(node.left);
-  } else if (node.right) {
-    return node.value < node.right.value && validateBST(node.right);
   }
+  if ((min !== null && node.data < min) || (max !== null && node.data > max)) {
+    return false;
+  }
+  if (!validateBST(node.left, min, node.data) || !validateBST(node.right, node.data, max)){
+    return false;
+  }
+  return true;
+}
+
+// 4.6 Successor: Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node has a link to its parent
+
+function successor(node) {
+  if (node.right) {
+    // find smallest from node.right as root
+    return helper(node.right, 'down');
+  }
+  if (!node.right && !node.left) {
+    if (node.parent === null) {
+      return null;
+    }
+    if (node.parent.data < node.data) {
+      return helper(node.parent, 'up')
+    } else {
+      // right parent
+      return node.parent;
+    }
+  }
+  function helper(node, direction) {
+    if (direction === 'down') {
+      if (node.left) {
+        return helper(node.left);
+      } else {
+        return node;
+      }
+    } else if (direction === 'up') {
+      if (node.parent.data < node.data) {
+        return helper(node.parent, 'up');
+      } else {
+        return node.parent;
+      }
+    }
+  }
+
+}
+
+// 4.7 You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the first project is dependent on the second project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error.
+
+function buildOrder(projects, dependencies) {
+  // construct adjacency list
+  debugger;
+  let projectDependencies = {};
+  for (const [dependent, project] of dependencies) {
+    if (!projectDependencies[project]) {
+      projectDependencies[project] = [dependent];
+    } else {
+      projectDependencies[project].push(dependent);
+    }
+  }
+
+  function search(project, path, searchSpace) {
+    path.push(project);
+    if (path.length === projects.length) {
+      return path;
+    }
+    for (let goTo of searchSpace) {
+      let goToPath = search(goTo, path, searchSpace);
+      if (goToPath) {
+        return goToPath;
+      }
+    }
+    return false;
+
+  }
+  let startingPoints = Object.keys(projectDependencies);
+  for (let start of startingPoints) {
+    let path = search(start, [], projectDependencies[start]);
+    if (path) {
+      return path;
+    }
+  }
+  throw new Error();
+}
+
+//4.8 common ancestor
+function
+
+// 4.10 check subtrees
+
+function checkSubtrees(t1, t2) {
+  let t1 = [];
+  let t2 = [];
+  function inOrder(node) {
+    if (node.left) {
+      inOrder(node.left);
+    }
+    t1.push(node.value);
+    t2.push(node.value)
+    if (node.right) {
+      inOrder(node.right);
+    }
+    const shorter = t1.length > t2.length ? t2 : t1;
+    const longer = t1.length > t2.length ? t1 : t2;
+
+    const shortString = JSON.stringify(shorter);
+    const longString = JSON.stringify(longer);
+    for (let i = 0; i < longString.length - shortString.length; i++) {
+      if (longString.slice(i, shortString.length + i) === shortString) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+// 4.11 random node
+
+// 4.12 paths with sum:
+
+function pathsWithSum(root) {
+
 }
