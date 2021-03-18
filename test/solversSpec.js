@@ -148,6 +148,14 @@ describe('chapter 8 recursion', () => {
       expect(path).to.deep.equal(expected)
     });
   });
+  describe('8.4 powerset', () => {
+    it('works for set of [1, 2, 3]', () => {
+      const set = [1, 2, 3];
+      const output = powerSet(set, 0);
+      console.log(output);
+      const expected = [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1,2,3]];
+    })
+  })
   describe('8.5 recursive multiply', function() {
     it('works for test input output', function() {
       expect(recursiveMultiply(3, 5)).to.equal(15);
@@ -157,6 +165,15 @@ describe('chapter 8 recursion', () => {
     });
     it('works for test input output', function() {
       expect(recursiveMultiply(3, 2)).to.equal(6);
+    });
+  });
+
+  describe('8.7 permutations no duplicates', function() {
+    it('works for test input output', function() {
+      const output = permutationsNoDups('abc', {});
+      const output4 = permutationsNoDups('abcd', {});
+      console.log(output4);
+      expect(output).to.have.members(['abc', 'acb', 'bac', 'bca', 'cba', 'cab']);
     });
   });
 });

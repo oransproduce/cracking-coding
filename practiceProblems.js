@@ -466,3 +466,43 @@ function recursiveMultiply(int1, int2) {
 
 
 // 8.6 towers of hanoi
+
+// 8.7 permutations without dups write a method to compute all permutations of a string of unique characters
+// function permutationsNoDups(str) {
+//   let permutations = [];
+//   function recurse(curr, remaining) {
+//     if (remaining.length === 1) {
+//       permutations.push(curr + remaining[0]);
+//     } else {
+//       for (let char of remaining) {
+//         let filtered = remaining.filter(x => x !== char);
+//         recurse(curr + char, filtered);
+//       }
+//     }
+//   }
+//   recurse('', str.split(''));
+//   return permutations;
+// }
+
+function permutationsNoDups(str, memo) {
+  debugger;
+  let permutations = [];
+  if (memo[str]) {
+    return memo[str];
+  }
+  if (str.length === 1) {
+    permutations.push(str);
+  } else {
+    for (let i = 0; i < str.length; i++) {
+      const curr = str[i];
+      const subPermutations = permutationsNoDups(str.slice(0, i) + str.slice(i+1), memo);
+      for (let i = 0; i < subPermutations.length; i++) {
+        permutations.push(curr + subPermutations[i]);
+      }
+    }
+  }
+
+  memo[str] = permutations;
+  return permutations;
+}
+
