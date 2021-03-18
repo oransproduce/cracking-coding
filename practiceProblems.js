@@ -381,6 +381,37 @@ function checkSubtrees(t1, t2) {
 
 // 4.12 paths with sum:
 
-function pathsWithSum(root) {
+function pathsWithSum(root, sum) {
 
+  function sum(node) {
+    if (node === null) {
+      [];
+    }
+    let left = sum(node.left);
+    let right = sum(node.right);
+
+    left = left.map(total => total += node.value);
+    left.push(node.value);
+    right = right.map(total => total += node.value);
+    return left + right;
+  }
+  return sum(root).filter(total => total === sum).length;
 }
+
+// 8.4 powerset
+function powerSet(set, index) {
+  if (index === set.length) {
+    return [[]];
+  } else {
+    const all = powerSet(set, index + 1);
+    const item = set[index];
+    const more = [];
+    for (const subset of all) {
+      const newSubset = subset.slice();
+      newSubset.push(item);
+      more.push(newSubset);
+    }
+    return all.concat(more);
+  }
+}
+// 8.5 towers of hanoi
