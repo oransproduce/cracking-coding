@@ -378,67 +378,6 @@ function checkSubtrees(tree1, tree2) {
 // 4.11 random node
 
 // 4.12 paths with sum:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function pathsWithSum(root, sum) {
 
   function sum(node) {
@@ -456,7 +395,48 @@ function pathsWithSum(root, sum) {
   return sum(root).filter(total => total === sum).length;
 }
 
-// 8.4 powerset
+// 8.2 robotPaths
+function robotPaths(grid, [x, y]) {
+  //try right
+  if (x === grid.length - 1 && y === grid.length - 1) {
+    return grid;
+  }
+  if (x+1 < grid.length && grid[y][x+1] === 0) {
+    grid[y][x+1] = 'x';
+    const right = robotPaths(grid, [x+1, y]);
+    if (right) {
+      return right;
+    }
+    grid[y][x+1] = 0;
+  }
+  if (y+1 < grid.length && grid[y+1][x] === 0) {
+    grid[y+1][x] = 'x';
+    const down = robotPaths(grid, [x, y+1]);
+    if (down) {
+      return down;
+    }
+    grid[y+1][x] = 0;
+  }
+  return null;
+}
+
+//8.3 Magic Index
+//A magic in dex in an array A[0...n-1] is defined to be an index uch that A[i] = i Given a sorted array of distinct integers, write a method to find a magic index, if one exists, in Array A
+
+function magicIndex(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > i) {
+      i = arr[i]
+    } else if (arr[i] === i) {
+      return i;
+    }
+  }
+  return null;
+}
+
+//8.4 Power Set:
+//Write a method to return all subsets of a set
+//set of n
 function powerSet(set, index) {
   if (index === set.length) {
     return [[]];
@@ -472,4 +452,17 @@ function powerSet(set, index) {
     return all.concat(more);
   }
 }
-// 8.5 towers of hanoi
+
+// 8.5 recursive multiply
+
+function recursiveMultiply(int1, int2) {
+  if (int1 === 1) {
+    return int2;
+  }
+  return int2 + recursiveMultiply(int1 - 1, int2);
+}
+
+
+
+
+// 8.6 towers of hanoi
