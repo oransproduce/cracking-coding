@@ -1,3 +1,4 @@
+
 describe('string problems', function() {
   describe('1.1 string is unique', function() {
     it('correctly identifies false strings', function() {
@@ -124,6 +125,40 @@ describe('graph tree problems', () => {
     });
   });
 
+});
+
+describe('chapter 8 recursion', () => {
+  describe('8.2 robot paths', function() {
+    it('works for test input output', function() {
+      const grid = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 0],
+        [0, 0, 0, 1, 0],
+        [0, 1, 0, 1, 1],
+        [0, 1, 0, 0, 0]
+      ];
+      const expected = [
+        [0, 0, 0, 0, 0],
+        ['x', 1, 1, 1, 0],
+        ['x', 'x', 'x', 1, 0],
+        [0, 1, 'x', 1, 1],
+        [0, 1, 'x', 'x', 'x']
+      ];
+      let path = robotPaths(grid, [0, 0]);
+      expect(path).to.deep.equal(expected)
+    });
+  });
+  describe('8.5 recursive multiply', function() {
+    it('works for test input output', function() {
+      expect(recursiveMultiply(3, 5)).to.equal(15);
+    });
+    it('works for test input output', function() {
+      expect(recursiveMultiply(1, 5)).to.equal(5);
+    });
+    it('works for test input output', function() {
+      expect(recursiveMultiply(3, 2)).to.equal(6);
+    });
+  });
 });
 
 
