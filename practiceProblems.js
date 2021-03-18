@@ -312,7 +312,6 @@ function successor(node) {
 
 function buildOrder(projects, dependencies) {
   // construct adjacency list
-  debugger;
   let projectDependencies = {};
   for (const [dependent, project] of dependencies) {
     if (!projectDependencies[project]) {
@@ -347,11 +346,10 @@ function buildOrder(projects, dependencies) {
 }
 
 //4.8 common ancestor
-function
 
 // 4.10 check subtrees
 
-function checkSubtrees(t1, t2) {
+function checkSubtrees(tree1, tree2) {
   let t1 = [];
   let t2 = [];
   function inOrder(node) {
@@ -380,6 +378,66 @@ function checkSubtrees(t1, t2) {
 // 4.11 random node
 
 // 4.12 paths with sum:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function pathsWithSum(root, sum) {
 
