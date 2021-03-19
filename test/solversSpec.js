@@ -176,6 +176,17 @@ describe('chapter 8 recursion', () => {
       expect(output).to.have.members(['abc', 'acb', 'bac', 'bca', 'cba', 'cab']);
     });
   });
+
+  describe('8.9 parens', function() {
+    it('works for test input output', function() {
+      const output = parentheses(3);
+      console.log(output);
+      const output4 = parentheses(4);
+      console.log(output4);
+      const expected = ['((()))', '()(())', '(()())', '(())()', '()()()'];
+      expect(output).to.have.members(expected);
+    });
+  });
 });
 
 

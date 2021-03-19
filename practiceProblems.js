@@ -485,7 +485,6 @@ function recursiveMultiply(int1, int2) {
 // }
 
 function permutationsNoDups(str, memo) {
-  debugger;
   let permutations = [];
   if (memo[str]) {
     return memo[str];
@@ -505,4 +504,51 @@ function permutationsNoDups(str, memo) {
   memo[str] = permutations;
   return permutations;
 }
+
+function permutationsWithDups(str, memo) {
+  const permutations = [];
+  if (memo[str]) {
+    return memo[str];
+  }
+  if (str.length === 1) {
+    permutations.push(str);
+  } else {
+    const unique = {};
+    for (let char of str) {
+      unique[char] = true;
+    }
+    unique = Object.keys(unique);
+    let count = 0;
+    for (let i = 0; i < unique.length; i++) {
+      const curr = unique[count];
+      const subPermutations = permutationsWithDups(str)
+    }
+  }
+}
+
+// 8.9 Parens: Implement an algorithm to print all valid (e.g. properly opened and closed) combinations of n pairs of parentheses.
+// 2 => (()) ()()
+// 3 => ()()() ((())) (())
+function parentheses(n) {
+  debugger;
+  const combinations = [];
+  if (n === 1) {
+    return ['()'];
+  }
+  const subParens = parentheses(n-1);
+  for (let sub of subParens) {
+    if (sub === '()'.repeat(n-1)) {
+      combinations.push('()' + sub);
+      combinations.push('(' + sub + ')');
+    } else {
+      combinations.push('()' + sub)
+      combinations.push('(' + sub + ')');
+      combinations.push(sub + '()');
+    }
+
+  }
+  return combinations;
+}
+
+
 
