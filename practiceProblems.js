@@ -530,7 +530,6 @@ function permutationsWithDups(str, memo) {
 // 2 => (()) ()()
 // 3 => ()()() ((())) (())
 function parentheses(n) {
-  debugger;
   const combinations = [];
   if (n === 1) {
     return ['()'];
@@ -550,5 +549,66 @@ function parentheses(n) {
   return combinations;
 }
 
+// 8.10 paint fill implement the "paint fill" function that one might see on many image editing programs. That is given a screen represented by a two dimensional array of colors, a point, and a new color fill in the surrounding area until the color changes from the original color
+
+function paintFill(pixels, point, color) {
+  const [x, y] = point;
+  const initialColor = pixels[y][x];
+  const visited = {};
+  function recursor(x, y) {
+    if (visited[[x, y]]) {
+      return;
+    }
+    visited[[x, y]] = true;
+    if (!pixels[y] || !pixels[y][x]) {
+      return;
+    }
+    if (pixels[y][x] !== initialColor) {
+      return;
+    } else {
+      pixels[y][x] = color;
+      recursor(x + 1, y);
+      recursor(x - 1, y);
+      recursor(x, y + 1);
+      recursor(x, y - 1);
+    }
+  }
+  recursor(x, y);
+}
+
+// 8.11 Coins, given an infinite number of quarters, dimes, nickels, and pennies, write code to calculate the number of ways of representing n cents
+// q
+// d
+// n
+// p
+const values = {
+  p: 1,
+  n: 5,
+  d: 10,
+  q: 25,
+};
+
+function coins(n) {
+  let combinations = [];
+  if (n < 0) {
+    return;
+  }
+  if (n === 0) {
+    return [];
+  } else {
+    for (let coin in values) {
+      const subCombo = coins(n-values[coin]);
+      if (subCombo) {
+        if (subCombo.length === 0) {
+          subCombo.push([coin]);
+        } else {
+          subCombo.forEach(sub => sub.push(coin));
+        }
+        combinations = combinations.concat(subCombo);
+      }
+    }
+    return combinations;
+  }
+}
 
 

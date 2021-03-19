@@ -187,6 +187,37 @@ describe('chapter 8 recursion', () => {
       expect(output).to.have.members(expected);
     });
   });
+
+  describe('8.10 paint fill', function() {
+    it('works for test input output', function() {
+      const input = [
+        [1, 1, 2, 3, 3],
+        [1, 2, 2, 2, 3],
+        [2, 2, 2, 3, 3],
+        [1, 1, 2, 2, 3],
+        [2, 2, 2, 2, 2]
+      ];
+      const expected = [
+        [1, 1, 5, 3, 3],
+        [1, 5, 5, 5, 3],
+        [5, 5, 5, 3, 3],
+        [1, 1, 5, 5, 3],
+        [5, 5, 5, 5, 5]
+      ];
+      paintFill(input, [2, 0], 5);
+      expect(input).to.deep.equal(expected);
+    });
+  });
+
+  describe('8.11 coins', function() {
+    it('works for test input output', function() {
+      console.log(coins(5, {}));
+      console.log(coins(10, {}));
+      expect(coins(5, {})).to.have.members([['n'], ['p', 'p', 'p', 'p', 'p']]);
+
+      expect(coins(10, {})).to.have.members([['n', 'p', 'p', 'p', 'p', 'p'], ['p', 'p', 'p', 'p', 'p'], ['n', 'n'], ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p']])
+    });
+  });
 });
 
 
