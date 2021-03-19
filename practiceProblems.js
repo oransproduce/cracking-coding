@@ -588,27 +588,94 @@ const values = {
   q: 25,
 };
 
+
 function coins(n) {
-  let combinations = [];
-  if (n < 0) {
-    return;
-  }
-  if (n === 0) {
-    return [];
-  } else {
-    for (let coin in values) {
-      const subCombo = coins(n-values[coin]);
-      if (subCombo) {
-        if (subCombo.length === 0) {
-          subCombo.push([coin]);
-        } else {
-          subCombo.forEach(sub => sub.push(coin));
-        }
-        combinations = combinations.concat(subCombo);
-      }
+  let combinations = {};
+  for (let coin in values) {
+    let subCombo;
+    if (n - values[coin] > 0) {
+      subCombo = coins(n-values[coin]);
+      subCombo.forEach(sub => sub.push(coin));
+    } else if (n - values[coin] === 0) {
+      combinations = combinations.concat([[coin]]);
     }
-    return combinations;
+    if (subCombo) {
+      combinations = combinations.concat(subCombo);
+    }
+  }
+  return combinations;
+}
+
+class Board {
+  constructor(n) {
+    this._array = makeNewBoard(n);
+  }
+  togglePiece() {
+
+  }
+  testHorizontals() {
+
+  }
+  testVerticals() {
+
+  }
+  testMajorDiagnols() {
+
+  }
+  testMinorDiagnols() {
+    
   }
 }
 
+function makeNewBoard(n) {
+  const board = [];
+  for (i = 0; i < n; i++) {
+    const row = []
+    for (j = 0; j < n; j++) {
+      row.push(0);
+    }
+    board.push(row);
+  }
+  return board;
+}
 
+// 8.12 N Queens
+
+// 8.13 Stack of Boxes
+// You have a stack of n boxes, with widths wi, heights hi, and depths di. The boxes cannot be rotated and can only be stacked
+// on top of one another if each box in the stack is strictly larger than the box above it in width, height, and depth. Implement
+// a method to compute the height of the tallest possible stack. The height of a stack is the sum of the heights of each box 
+
+class Box {
+  constructor(width, height, depth) {
+    this.width = width;
+    this.height = height;
+    this.depth = depth;
+  }
+
+  volume() {
+    return this.width*this.height*this.depth;
+  }
+}
+
+class Stack {
+  constructor() {
+    this._storage = [];
+    this.size = 0;
+  }
+  push(value) {
+    this._storage.push(value);
+    this.size += 1;
+  }
+  pop() {
+    if (this.size > 1) {
+      this.size -= 1;
+      return this._storage.pop();
+    }
+  }
+  peek() {
+    if (this.size > 1) {
+      return this._storage[this.size - 1];
+    }
+  }
+}
