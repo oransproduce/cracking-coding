@@ -1,3 +1,4 @@
+//const { expect } = require("chai");
 
 describe('string problems', function() {
   describe('1.1 string is unique', function() {
@@ -211,13 +212,50 @@ describe('chapter 8 recursion', () => {
 
   describe('8.11 coins', function() {
     it('works for test input output', function() {
-      console.log(coins(5, {}));
-      console.log(coins(10, {}));
-      expect(coins(5, {})).to.have.members([['n'], ['p', 'p', 'p', 'p', 'p']]);
+      expect(coins(5)).to.have.members([['n'], ['p', 'p', 'p', 'p', 'p']]);
 
-      expect(coins(10, {})).to.have.members([['n', 'p', 'p', 'p', 'p', 'p'], ['p', 'p', 'p', 'p', 'p'], ['n', 'n'], ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p']])
+      expect(coins(10)).to.have.members([['n', 'p', 'p', 'p', 'p', 'p'], ['p', 'p', 'p', 'p', 'p'], ['n', 'n'], ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p']])
     });
   });
 });
+
+describe('sorting algorithm practice', () => {
+  describe('bubblesort', () => {
+    it('works for test input', () => {
+      const testArr = [10, 3, 8, 7, 4, 12, 15];
+      const output = bubbleSort(testArr);
+      console.log(output);
+      expect(output).to.deep.equal([3, 4, 7, 8, 10, 12, 15]);
+
+    })
+  });
+  describe('selectionSort', () => {
+    it('works for test input', () => {
+      const testArr = [10, 3, 8, 7, 4, 12, 15];
+      const output = selectionSort(testArr);
+      console.log(output);
+      expect(output).to.deep.equal([3, 4, 7, 8, 10, 12, 15]);
+
+    });
+  });
+  describe('insertionSort', () => {
+    it('works for test input', () => {
+      const testArr = [5, 2, 8, 3, 4];
+      const output = insertionSort(testArr);
+      console.log(output);
+      expect(output).to.deep.equal([2, 3, 4, 5, 8]);
+
+    });
+  });
+  describe('mergeSort', () => {
+    it('works for test input', () => {
+      const testArr = [10, 3, 8, 7, 4, 12, 15];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = mergeSort(testArr);
+      expect(output).to.deep.equal(sorted);
+
+    });
+  });
+})
 
 

@@ -577,105 +577,235 @@ function paintFill(pixels, point, color) {
 }
 
 // 8.11 Coins, given an infinite number of quarters, dimes, nickels, and pennies, write code to calculate the number of ways of representing n cents
-// q
-// d
-// n
-// p
-const values = {
-  p: 1,
-  n: 5,
-  d: 10,
-  q: 25,
-};
 
+const denominations = [25, 10, 5, 1];
+const coinSymbols = ['q', 'd', 'n', 'p']
 
 function coins(n) {
-  let combinations = {};
-  for (let coin in values) {
-    let subCombo;
-    if (n - values[coin] > 0) {
-      subCombo = coins(n-values[coin]);
-      subCombo.forEach(sub => sub.push(coin));
-    } else if (n - values[coin] === 0) {
-      combinations = combinations.concat([[coin]]);
+  const combinations = [];
+  function recurse(wallet, total, index) {
+    if (index === 4) {
+      return;
     }
-    if (subCombo) {
-      combinations = combinations.concat(subCombo);
+    if (total === 0) {
+      combinations.push(wallet);
+      return;
+    }
+    if (total < 0) {
+      return;
+    }
+    let newTotal = total;
+    const skipWallet = Object.fromEntries(Object.entries(wallet));
+    recurse(skipWallet, total, index + 1);
+    while (newTotal > 0) {
+      const newWallet = Object.fromEntries(Object.entries(wallet));
+      newWallet[coinSymbols[index]] += 1;
+      recurse(newWallet, total - denominations[index], index + 1);
+      newTotal -= denominations[index]
     }
   }
+  const wallet = {
+    q: 0,
+    d: 0,
+    n: 0,
+    p: 0,
+  }
+  recurse(wallet, n, 0);
   return combinations;
 }
 
-class Board {
-  constructor(n) {
-    this._array = makeNewBoard(n);
-  }
-  togglePiece() {
+// class Board {
+//   constructor(n) {
+//     this._array = makeNewBoard(n);
+//   }
+//   togglePiece(x, y) {
+//     this._array[y][x] = 1;
+//   }
+//   testHorizontal() {
 
-  }
-  testHorizontals() {
+//   }
+//   testHorizontals() {
+//     let count = 0;
+//     for (let row of this._array) {
+//       if (row.filter(piece => piece === 1).length > 1) {
+//         return false;
+//       }
+//     }
+//     return true;
+//   }
+//   testVertical() {
 
-  }
-  testVerticals() {
+//   }
+//   testVerticals() {
+//     const col = [];
+//     for (let row of this._array) {
+//       col.push(row[isNaN])
+//     }
+//   }
+//   testDiagnol() {
 
-  }
-  testMajorDiagnols() {
+//   }
+//   testMajorDiagnols() {
 
+//   }
+//   testMinorDiagnols() {
+
+//   }
+// }
+
+// function makeNewBoard(n) {
+//   const board = [];
+//   for (i = 0; i < n; i++) {
+//     const row = []
+//     for (j = 0; j < n; j++) {
+//       row.push(0);
+//     }
+//     board.push(row);
+//   }
+//   return board;
+// }
+
+// // 8.12 N Queens
+
+// // 8.13 Stack of Boxes
+// // You have a stack of n boxes, with widths wi, heights hi, and depths di. The boxes cannot be rotated and can only be stacked
+// // on top of one another if each box in the stack is strictly larger than the box above it in width, height, and depth. Implement
+// // a method to compute the height of the tallest possible stack. The height of a stack is the sum of the heights of each box 
+
+// class Box {
+//   constructor(width, height, depth) {
+//     this.width = width;
+//     this.height = height;
+//     this.depth = depth;
+//   }
+
+//   volume() {
+//     return this.width*this.height*this.depth;
+//   }
+// }
+
+// class Stack {
+//   constructor() {
+//     this._storage = [];
+//     this.size = 0;
+//   }
+//   push(value) {
+//     this._storage.push(value);
+//     this.size += 1;
+//   }
+//   pop() {
+//     if (this.size > 1) {
+//       this.size -= 1;
+//       return this._storage.pop();
+//     }
+//   }
+//   peek() {
+//     if (this.size > 1) {
+//       return this._storage[this.size - 1];
+//     }
+//   }
+// }
+
+// Bubblesort 
+
+const bubbleSort = function(arr) {
+  for (let j = 0; j < arr.length; j++) {
+    for (let i = 0; i < arr.length - j - 1; i++) {
+      if (arr[i] > arr[i+1]) {
+        swap(arr, i, i+1);
+      }
+    }
   }
-  testMinorDiagnols() {
-    
-  }
+  return arr;
 }
 
-function makeNewBoard(n) {
-  const board = [];
-  for (i = 0; i < n; i++) {
-    const row = []
-    for (j = 0; j < n; j++) {
-      row.push(0);
+// Selection sort
+
+const selectionSort = function(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let minValue = arr[i];
+    let minIndex = i;
+    for (let j = i; j < arr.length; j++) {
+      if (arr[j] < minValue) {
+        minValue = arr[j];
+        minIndex = j;
+      }
     }
-    board.push(row);
+    swap(arr, i, minIndex);
   }
-  return board;
+  return arr;
 }
 
-// 8.12 N Queens
-
-// 8.13 Stack of Boxes
-// You have a stack of n boxes, with widths wi, heights hi, and depths di. The boxes cannot be rotated and can only be stacked
-// on top of one another if each box in the stack is strictly larger than the box above it in width, height, and depth. Implement
-// a method to compute the height of the tallest possible stack. The height of a stack is the sum of the heights of each box 
-
-class Box {
-  constructor(width, height, depth) {
-    this.width = width;
-    this.height = height;
-    this.depth = depth;
-  }
-
-  volume() {
-    return this.width*this.height*this.depth;
-  }
+function swap(arr, i1, i2) {
+  let save = arr[i1];
+  arr[i1] = arr[i2];
+  arr[i2] = save;
 }
 
-class Stack {
-  constructor() {
-    this._storage = [];
-    this.size = 0;
+// Insertion sort
+
+const insertionSort = function(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let currentVal = arr[i];
+    for (var j = i - 1; j >= 0; j--) {
+      if (arr[j] > currentVal) {
+        arr[j+1] = arr[j];
+      } else {
+        break;
+      }
+    }
+    arr[j + 1] = currentVal;
   }
-  push(value) {
-    this._storage.push(value);
-    this.size += 1;
+  return arr;
+}
+
+// bubble sort: start from index 0, loop through array, and swap adjacent values if the left
+// most is bigger. each iteration of the outer loop you can go one less on the inner loop
+
+// selection sort: loop through array and find smallest and swap with starting point. iterate the starting point
+// as the array's left side becomes sorted
+
+// insertion sort: divide array in two. slowly move divider right, each time bubbling up a space in the sorted left portion 
+// and inserting the new value shifted from the right
+
+// tradeoffs: all worst case quadratic (n^2), but for nearly sorted data, bubblesort and insertion sort work in linear time which
+// is an advantage over the faster algorithms
+
+const merge = function (arr1, arr2) {
+  if (!arr1) {
+    return arr2;
   }
-  pop() {
-    if (this.size > 1) {
-      this.size -= 1;
-      return this._storage.pop();
+  if (!arr2) {
+    return arr1;
+  }
+  const output = [];
+  let arr1Index = 0;
+  let arr2Index = 0;
+  while (arr1Index < arr1.length && arr2Index < arr2.length) {
+    if (arr1[arr1Index] < arr2[arr2Index]) {
+      output.push(arr1[arr1Index]);
+      arr1Index++;
+    } else {
+      output.push(arr2[arr2Index]);
+      arr2Index++;
     }
   }
-  peek() {
-    if (this.size > 1) {
-      return this._storage[this.size - 1];
-    }
+  if (arr1Index !== arr1.length) {
+    output.push(...arr1.slice(arr1Index));2
   }
+  if (arr2Index !== arr2.length) {
+    output.push(...arr2.slice(arr2Index));
+  }
+  return output;
+}
+
+const mergeSort = function(arr) {
+  debugger;
+  if (arr.length === 1 || arr.length === 0) {
+    return arr;
+  }
+  const midIx = Math.floor(arr.length/2);
+  const left = mergeSort(arr.slice(0, midIx));
+  const right = mergeSort(arr.slice(midIx));
+  return merge(left, right);
 }
