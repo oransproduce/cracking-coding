@@ -1,5 +1,3 @@
-//const { expect } = require("chai");
-
 describe('string problems', function() {
   describe('1.1 string is unique', function() {
     it('correctly identifies false strings', function() {
@@ -223,28 +221,79 @@ describe('sorting algorithm practice', () => {
   describe('bubblesort', () => {
     it('works for test input', () => {
       const testArr = [10, 3, 8, 7, 4, 12, 15];
+      const sorted = testArr.slice().sort((a, b) => a - b);
       const output = bubbleSort(testArr);
-      console.log(output);
-      expect(output).to.deep.equal([3, 4, 7, 8, 10, 12, 15]);
-
-    })
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [10, 3];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = bubbleSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [10];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = bubbleSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [7, 3, 9, 2, 4, 1, 10, 11];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = bubbleSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
   });
   describe('selectionSort', () => {
     it('works for test input', () => {
       const testArr = [10, 3, 8, 7, 4, 12, 15];
+      const sorted = testArr.slice().sort((a, b) => a - b);
       const output = selectionSort(testArr);
-      console.log(output);
-      expect(output).to.deep.equal([3, 4, 7, 8, 10, 12, 15]);
-
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [10, 3];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = selectionSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [10];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = selectionSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [7, 3, 9, 2, 4, 1, 10, 11];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = selectionSort(testArr);
+      expect(output).to.deep.equal(sorted);
     });
   });
   describe('insertionSort', () => {
     it('works for test input', () => {
-      const testArr = [5, 2, 8, 3, 4];
+      const testArr = [10, 3, 8, 7, 4, 12, 15];
+      const sorted = testArr.slice().sort((a, b) => a - b);
       const output = insertionSort(testArr);
-      console.log(output);
-      expect(output).to.deep.equal([2, 3, 4, 5, 8]);
-
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [10, 3];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = insertionSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [10];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = insertionSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [7, 3, 9, 2, 4, 1, 10, 11];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = insertionSort(testArr);
+      expect(output).to.deep.equal(sorted);
     });
   });
   describe('mergeSort', () => {
@@ -253,7 +302,58 @@ describe('sorting algorithm practice', () => {
       const sorted = testArr.slice().sort((a, b) => a - b);
       const output = mergeSort(testArr);
       expect(output).to.deep.equal(sorted);
-
+    });
+    it('works for test input', () => {
+      const testArr = [10, 3];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = mergeSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [10];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = mergeSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [7, 3, 9, 2, 4, 1, 10, 11];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = mergeSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+  });
+  describe('pivotHelper', () => {
+    it('works for test input', () => {
+      const testArr = [10, 3, 8, 7, 4, 12, 15];
+      const output = pivot(testArr);
+      expect(testArr).to.deep.equal([ 4, 3, 8, 7, 10, 12, 15 ]);
+      expect(output).to.equal(4);
+    });
+  });
+  describe('quickSort', () => {
+    it('works for test input', () => {
+      const testArr = [10, 3, 8, 7, 4, 12, 15];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = quickSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [10, 3];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = quickSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [10];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = quickSort(testArr);
+      expect(output).to.deep.equal(sorted);
+    });
+    it('works for test input', () => {
+      const testArr = [7, 3, 9, 2, 4, 1, 10, 11];
+      const sorted = testArr.slice().sort((a, b) => a - b);
+      const output = quickSort(testArr);
+      expect(output).to.deep.equal(sorted);
     });
   });
 })

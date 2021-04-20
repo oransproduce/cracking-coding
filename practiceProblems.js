@@ -708,30 +708,68 @@ function coins(n) {
 
 // Bubblesort 
 
+// const bubbleSort = function(arr) {
+//   for (let j = 0; j < arr.length; j++) {
+//     for (let i = 0; i < arr.length - j - 1; i++) {
+//       if (arr[i] > arr[i+1]) {
+//         swap(arr, i, i+1);
+//       }
+//     }
+//   }
+//   return arr;
+// }
+
 const bubbleSort = function(arr) {
-  for (let j = 0; j < arr.length; j++) {
-    for (let i = 0; i < arr.length - j - 1; i++) {
-      if (arr[i] > arr[i+1]) {
-        swap(arr, i, i+1);
+  const swap = function (i1, i2) {
+    const save = arr[i1];
+    arr[i1] = arr[i2];
+    arr[i2] = save;
+  }
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      if (arr[j] > arr[j+1]) {
+        swap(j, j+1);
       }
     }
   }
-  return arr;
+  return  arr;
+
 }
 
 // Selection sort
 
+// const selectionSort = function(arr) {
+//   for (let i = 0; i < arr.length; i++) {
+//     let minValue = arr[i];
+//     let minIndex = i;
+//     for (let j = i; j < arr.length; j++) {
+//       if (arr[j] < minValue) {
+//         minValue = arr[j];
+//         minIndex = j;
+//       }
+//     }
+//     swap(arr, i, minIndex);
+//   }
+//   return arr;
+// }
+
+// selection sort iterate through find the min value then put it in sorted portion
 const selectionSort = function(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    let minValue = arr[i];
-    let minIndex = i;
-    for (let j = i; j < arr.length; j++) {
-      if (arr[j] < minValue) {
-        minValue = arr[j];
-        minIndex = j;
+  const swap = function(i1, i2) {
+    const save = arr[i1];
+    arr[i1] = arr[i2];
+    arr[i2] = save;
+  }
+  for (let swapIx = 0; swapIx < arr.length; swapIx++) {
+    let minValue = arr[swapIx];
+    let minIx = swapIx; 
+    for (let i = swapIx+1; i < arr.length; i++) {
+      if (arr[minIx] > arr[i]) {
+        minValue = arr[i];
+        minIx = i;
       }
     }
-    swap(arr, i, minIndex);
+    swap(swapIx, minIx);
   }
   return arr;
 }
@@ -759,6 +797,21 @@ const insertionSort = function(arr) {
   return arr;
 }
 
+
+
+// insertion sort take value and put into the spot in sorted array 
+// const insertionSort = function(arr) {
+//   for (let i = 1; i < arr.length; i++) {
+//     let currentValue = arr[i];
+//     for (var j = i; arr[j] < currentVal && j > -1; j--) {
+//       arr[j] = arr[j-1];
+//     }
+//     j++;
+//     arr[j] = currentValue;
+//   }
+//   return arr;
+// }
+
 // bubble sort: start from index 0, loop through array, and swap adjacent values if the left
 // most is bigger. each iteration of the outer loop you can go one less on the inner loop
 
@@ -771,41 +824,100 @@ const insertionSort = function(arr) {
 // tradeoffs: all worst case quadratic (n^2), but for nearly sorted data, bubblesort and insertion sort work in linear time which
 // is an advantage over the faster algorithms
 
-const merge = function (arr1, arr2) {
-  if (!arr1) {
-    return arr2;
-  }
-  if (!arr2) {
-    return arr1;
-  }
-  const output = [];
-  let arr1Index = 0;
-  let arr2Index = 0;
-  while (arr1Index < arr1.length && arr2Index < arr2.length) {
-    if (arr1[arr1Index] < arr2[arr2Index]) {
-      output.push(arr1[arr1Index]);
-      arr1Index++;
+// const merge = function (arr1, arr2) {
+//   if (!arr1) {
+//     return arr2;
+//   }
+//   if (!arr2) {
+//     return arr1;
+//   }
+//   const output = [];
+//   let arr1Index = 0;
+//   let arr2Index = 0;
+//   while (arr1Index < arr1.length && arr2Index < arr2.length) {
+//     if (arr1[arr1Index] < arr2[arr2Index]) {
+//       output.push(arr1[arr1Index]);
+//       arr1Index++;
+//     } else {
+//       output.push(arr2[arr2Index]);
+//       arr2Index++;
+//     }
+//   }
+//   if (arr1Index !== arr1.length) {
+//     output.push(...arr1.slice(arr1Index));2
+//   }
+//   if (arr2Index !== arr2.length) {
+//     output.push(...arr2.slice(arr2Index));
+//   }
+//   return output;
+// }
+
+// const mergeSort = function(arr) {
+//   if (arr.length === 1 || arr.length === 0) {
+//     return arr;
+//   }
+//   const midIx = Math.floor(arr.length/2);
+//   const left = mergeSort(arr.slice(0, midIx));
+//   const right = mergeSort(arr.slice(midIx));
+//   return merge(left, right);
+// }
+
+const merge = function(arr1, arr2) {
+  let index1 = 0;
+  let index2 = 0;
+  const merged = [];
+  while (index1 < arr1.length && index2 < arr2.length) {
+    if (arr1[index1] < arr2[index2]) {
+      merged.push(arr1[index1]);
+      index1++;
     } else {
-      output.push(arr2[arr2Index]);
-      arr2Index++;
+      merged.push(arr2[index2]);
+      index2++;
     }
   }
-  if (arr1Index !== arr1.length) {
-    output.push(...arr1.slice(arr1Index));2
+
+  while (index1 < arr1.length) {
+    merged.push(arr1[index1]);
+    index1++;
   }
-  if (arr2Index !== arr2.length) {
-    output.push(...arr2.slice(arr2Index));
+
+  while (index2 < arr2.length) {
+    merged.push(arr2[index2]);
+    index2++;
   }
-  return output;
+  return merged;
 }
 
 const mergeSort = function(arr) {
-  debugger;
   if (arr.length === 1 || arr.length === 0) {
     return arr;
   }
-  const midIx = Math.floor(arr.length/2);
-  const left = mergeSort(arr.slice(0, midIx));
-  const right = mergeSort(arr.slice(midIx));
+  const middleIndex = Math.floor(arr.length/2);
+  const left = mergeSort(arr.slice(0, middleIndex));
+  const right = mergeSort(arr.slice(middleIndex));
   return merge(left, right);
 }
+
+const pivot = function(arr, start, end) {
+  const pivotValue = arr[start];
+  let pivotIx = start;
+  for (let i = start+1; i <= end; i++) {
+    if (arr[i] < pivotValue) {
+      pivotIx++;
+      swap(arr, pivotIx, i);
+    }
+  }
+  swap(arr, 0, pivotIx);
+  return pivotIx;
+}
+
+const quickSort = function(arr, left=0, right=arr.length-1) {
+  if (left < right) {
+    let pivotIndex = pivot(arr, left, right);
+    quickSort(arr, 0, pivotIndex-1);
+    quickSort(arr, pivotIndex + 1, right);
+  }
+  return arr;
+}
+
+
