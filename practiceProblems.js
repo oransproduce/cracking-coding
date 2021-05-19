@@ -719,23 +719,39 @@ function coins(n) {
 //   return arr;
 // }
 
+// const bubbleSort = function(arr) {
+//   const swap = function (i1, i2) {
+//     const save = arr[i1];
+//     arr[i1] = arr[i2];
+//     arr[i2] = save;
+//   }
+//   for (let i = 0; i < arr.length; i++) {
+//     for (let j = 0; j < arr.length - 1 - i; j++) {
+//       if (arr[j] > arr[j+1]) {
+//         swap(j, j+1);
+//       }
+//     }
+//   }
+//   return  arr;
+
+// }
+
+function swap(arr, i1, i2) {
+  let save = arr[i1];
+  arr[i1] = arr[i2];
+  arr[i2] = save;
+}
+
 const bubbleSort = function(arr) {
-  const swap = function (i1, i2) {
-    const save = arr[i1];
-    arr[i1] = arr[i2];
-    arr[i2] = save;
-  }
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length - 1; i++) {
     for (let j = 0; j < arr.length - 1 - i; j++) {
       if (arr[j] > arr[j+1]) {
-        swap(j, j+1);
+        swap(arr, j, j+1);
       }
     }
   }
-  return  arr;
-
+  return arr;
 }
-
 // Selection sort
 
 // const selectionSort = function(arr) {
@@ -754,45 +770,71 @@ const bubbleSort = function(arr) {
 // }
 
 // selection sort iterate through find the min value then put it in sorted portion
+// const selectionSort = function(arr) {
+//   const swap = function(i1, i2) {
+//     const save = arr[i1];
+//     arr[i1] = arr[i2];
+//     arr[i2] = save;
+//   }
+//   for (let swapIx = 0; swapIx < arr.length; swapIx++) {
+//     let minValue = arr[swapIx];
+//     let minIx = swapIx; 
+//     for (let i = swapIx+1; i < arr.length; i++) {
+//       if (arr[minIx] > arr[i]) {
+//         minValue = arr[i];
+//         minIx = i;
+//       }
+//     }
+//     swap(swapIx, minIx);
+//   }
+//   return arr;
+// }
 const selectionSort = function(arr) {
-  const swap = function(i1, i2) {
-    const save = arr[i1];
-    arr[i1] = arr[i2];
-    arr[i2] = save;
-  }
-  for (let swapIx = 0; swapIx < arr.length; swapIx++) {
-    let minValue = arr[swapIx];
-    let minIx = swapIx; 
-    for (let i = swapIx+1; i < arr.length; i++) {
-      if (arr[minIx] > arr[i]) {
-        minValue = arr[i];
-        minIx = i;
+  let swapValue;
+  let swapIx;
+  for (let i = 0; i < arr.length; i++) {
+    swapValue = arr[i];
+    swapIx = i;
+    for (let j = i; j < arr.length; j++) {
+      if (arr[j] < swapValue) {
+        swapValue = arr[j];
+        swapIx = j;
       }
     }
-    swap(swapIx, minIx);
+    swap(arr, i, swapIx);
   }
   return arr;
 }
 
-function swap(arr, i1, i2) {
-  let save = arr[i1];
-  arr[i1] = arr[i2];
-  arr[i2] = save;
-}
-
 // Insertion sort
+
+// const insertionSort = function(arr) {
+//   for (let i = 1; i < arr.length; i++) {
+//     let currentVal = arr[i];
+//     for (var j = i - 1; j >= 0; j--) {
+//       if (arr[j] > currentVal) {
+//         arr[j+1] = arr[j];
+//       } else {
+//         break;
+//       }
+//     }
+//     arr[j + 1] = currentVal;
+//   }
+//   return arr;
+// }
 
 const insertionSort = function(arr) {
   for (let i = 1; i < arr.length; i++) {
-    let currentVal = arr[i];
+    let insertValue = arr[i];
     for (var j = i - 1; j >= 0; j--) {
-      if (arr[j] > currentVal) {
-        arr[j+1] = arr[j];
+      if (insertValue < arr[j]) {
+        swap(arr, j, j+1);
       } else {
+        
         break;
       }
     }
-    arr[j + 1] = currentVal;
+    swap(arr, i, j);
   }
   return arr;
 }
@@ -898,24 +940,53 @@ const mergeSort = function(arr) {
   return merge(left, right);
 }
 
+// const pivot = function(arr, start=0, end=arr.length-1) {
+//   const pivotValue = arr[start];
+//   let pivotIx = start;
+//   for (let i = start+1; i <= end; i++) {
+//     if (arr[i] < pivotValue) {
+//       pivotIx++;
+//       swap(arr, pivotIx, i);
+//     }
+//   }
+//   swap(arr, start, pivotIx);
+//   return pivotIx;
+// }
+
+// const quickSort = function(arr, left=0, right=arr.length-1) {
+//   debugger
+//   if (left < right) {
+//     let pivotIndex = pivot(arr, left, right);
+//     quickSort(arr, 0, pivotIndex-1);
+//     quickSort(arr, pivotIndex + 1, right);
+//   }
+//   return arr;
+// }
+
 const pivot = function(arr, start, end) {
+  const swap = function(i1, i2) {
+    let save = arr[i1];
+    arr[i1] = arr[i2];
+    arr[i2] = save;
+  }
   const pivotValue = arr[start];
-  let pivotIx = start;
-  for (let i = start+1; i <= end; i++) {
+  let pivotIndex = start;
+  for (let i = start + 1; i <= end; i++) {
     if (arr[i] < pivotValue) {
-      pivotIx++;
-      swap(arr, pivotIx, i);
+      pivotIndex++;
+      swap(pivotIndex, i);
     }
   }
-  swap(arr, 0, pivotIx);
-  return pivotIx;
+  swap(pivotIndex, start);
+  return pivotIndex;
 }
 
-const quickSort = function(arr, left=0, right=arr.length-1) {
+const quickSort = function(arr, left=0, right=arr.length - 1) {
+  debugger;
   if (left < right) {
     let pivotIndex = pivot(arr, left, right);
-    quickSort(arr, 0, pivotIndex-1);
-    quickSort(arr, pivotIndex + 1, right);
+    quickSort(arr, left, pivotIndex - 1);
+    quickSort(arr, pivotIndex+1, right);
   }
   return arr;
 }
